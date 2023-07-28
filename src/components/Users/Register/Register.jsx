@@ -2,6 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 import { registerUserAction } from "../../../redux/slices/users/usersSlices";
 
 
@@ -30,8 +31,9 @@ const Register = () => {
       password: "",
     },
     onSubmit: (values) => {
+      //dispatch action
       dispatch(registerUserAction(values));
-      console.log(values);
+      // console.log(values);
     },
     validationSchema: formSchema,
   })
@@ -40,6 +42,11 @@ const Register = () => {
   const storeDate = useSelector(store=>store?.users);
   const {loading, appErr, serverErr, registered} = storeDate;
 
+  //navigate 
+  const navigate = useNavigate()
+  if(registered) {
+    navigate('/profile');
+  }
 
   return (
     <section className="relative py-20 2xl:py-40 bg-gray-800 overflow-hidden">
@@ -266,8 +273,7 @@ const Register = () => {
                   {loading? (
                     <button
                     disabled
-                    type="submit"
-                    className="py-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full transition duration-200"
+                    className="py-4 w-full bg-gray-500 text-white font-bold rounded-full transition duration-200"
                   >
                     Loading, please wait...
                   </button>
