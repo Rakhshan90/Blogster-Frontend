@@ -35,7 +35,7 @@ async (user, {rejectWithValue, getState, dispatch})=>{
 });
 
 // --------------------------------------//
-//        ---     Login Action    --- //
+//        ---     Login Action    ---    //
 // --------------------------------------//
 
 export const userLoginAction = createAsyncThunk('users/login', 
@@ -65,15 +65,34 @@ async (userData, {rejectWithValue, getState, dispatch})=>{
             return rejectWithValue(error?.response?.data);
         }
     }
-})
+});
+
+// --------------------------------------//
+//        ---     Logout Action    ---   //
+// --------------------------------------//
+export const userLogoutAction = createAsyncThunk('user/logout', 
+async(payload, {rejectWithValue, getState, dispatch})=>{
+    try {
+        localStorage.removeItem('userInfo');
+    } catch (error) {
+        //!error && !error.response
+        if(!error?.response){
+            //error from frontend if any
+            throw error;
+        } 
+        else{
+            //error from backend
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+});
 
 //get user from local storage and place it into store 
 const userLoginFormStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
 
-// ****** Slices ******* // 
 // --------------------------------------//
-//        ---     Register Slice     --- //
+//        ---     Users Slices       --- //
 // --------------------------------------//
 const usersSlices = createSlice({
     name: 'users',
@@ -113,6 +132,21 @@ const usersSlices = createSlice({
             state.serverErr = undefined;
         })
         builder.addCase(userLoginAction.rejected, (state, action)=>{
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        })
+        //logout
+        builder.addCase(userLogoutAction.pending, (state, action)=>{
+            state.loading = true;
+        })
+        builder.addCase(userLogoutAction.fulfilled, (state, action)=>{
+            state.userAuth = undefined;
+            state.loading = false;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        })
+        builder.addCase(userLogoutAction.rejected, (state, action)=>{
             state.loading = false;
             state.appErr = action?.payload?.message;
             state.serverErr = action?.error?.message;
