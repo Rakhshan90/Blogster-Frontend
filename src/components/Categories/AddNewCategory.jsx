@@ -27,7 +27,13 @@ const AddNewCategory = () => {
   })
   //select states from store
   const state = useSelector(state=>state?.category)
-  const {category, loading, appErr, serverErr} = state;
+  const {category, loading, appErr, serverErr, isCreate} = state;
+
+  //navigate
+  const navigate = useNavigate();
+  if(isCreate){
+    navigate('/category-list');
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
