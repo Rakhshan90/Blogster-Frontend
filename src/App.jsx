@@ -8,6 +8,9 @@ import AddNewCategory from './components/Categories/AddNewCategory'
 import CategoryList from './components/Categories/CategoryList'
 import UpdateCategory from './components/Categories/UpdateCategory'
 import AdminProtectRoute from './components/Navigation/ProtectedRoutes/AdminProtectRoute'
+import PrivateProtectRoute from './components/Navigation/ProtectedRoutes/PrivateProtectRoute'
+import CreatePost from './components/Posts/CreatePost'
+import PostsList from './components/Posts/PostsList'
 
 
 function App() {
@@ -20,6 +23,8 @@ function App() {
         <Routes>
           <Route exact path='/' element={<HomePage />} />
           <Route exact path='/add-category' element={<AdminProtectRoute> <AddNewCategory /> </AdminProtectRoute>} />
+          <Route exact path='/posts' element={<PostsList />} />
+          <Route exact path='/create-post' element={<PrivateProtectRoute> <CreatePost /> </PrivateProtectRoute>} />
           <Route exact path='/update-category/:id' element={<AdminProtectRoute> <UpdateCategory /> </AdminProtectRoute>} />
           <Route exact path='/category-list' element={<AdminProtectRoute> <CategoryList /> </AdminProtectRoute>} />
           <Route exact path='/register' element={<Register />} />

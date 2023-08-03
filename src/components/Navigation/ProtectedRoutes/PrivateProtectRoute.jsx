@@ -7,7 +7,7 @@ const PrivateProtectRoute = ({children}) => {
   const user = useSelector((state) => state?.users);
   const { userAuth } = user;
 
-  if(userAuth) {
+  if(userAuth) { 
     return children
   } 
   return <Navigate to="/login" />

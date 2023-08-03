@@ -8,7 +8,9 @@ const resetEditAction = createAction('category/edit-reset');
 const resetDeleteAction = createAction('category/delete-reset');
 const resetCreateAction = createAction('category/create-reset');
 
-//actions
+// --------------------------------------//
+//          ---       actions        --- //
+// --------------------------------------// 
 export const createCategoryAction = createAsyncThunk('category/create', 
 async(category, {rejectWithValue, getState, dispatch})=>{
     //get the token of user
@@ -145,7 +147,9 @@ async(id, {rejectWithValue, getState, dispatch})=>{
     }
 })
 
-//slices
+// --------------------------------------//
+//          ---       Slices         --- //
+// --------------------------------------// 
 const categorySlices = createSlice({
     name: 'category',
     initialState : {},
@@ -179,7 +183,7 @@ const categorySlices = createSlice({
             state.loading = false;
             state.appErr = undefined;
             state.serverErr = undefined;
-        });
+        }); 
         builder.addCase(fetchCategoriesAction.rejected, (state, action)=>{
             state.loading = false;
             state.appErr = action?.payload?.message;
