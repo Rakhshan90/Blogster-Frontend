@@ -11,6 +11,7 @@ import AdminProtectRoute from './components/Navigation/ProtectedRoutes/AdminProt
 import PrivateProtectRoute from './components/Navigation/ProtectedRoutes/PrivateProtectRoute'
 import CreatePost from './components/Posts/CreatePost'
 import PostsList from './components/Posts/PostsList'
+import PostDetails from './components/Posts/PostDetails'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path='/' element={<HomePage />} />
           <Route exact path='/add-category' element={<AdminProtectRoute> <AddNewCategory /> </AdminProtectRoute>} />
           <Route exact path='/posts' element={<PostsList />} />
+          <Route exact path='/posts/:id' element={<PostDetails />} />
           <Route exact path='/create-post' element={<PrivateProtectRoute> <CreatePost /> </PrivateProtectRoute>} />
           <Route exact path='/update-category/:id' element={<AdminProtectRoute> <UpdateCategory /> </AdminProtectRoute>} />
           <Route exact path='/category-list' element={<AdminProtectRoute> <CategoryList /> </AdminProtectRoute>} />

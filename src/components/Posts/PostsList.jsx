@@ -2,31 +2,30 @@ import { useEffect } from "react";
 import { ThumbUpIcon, ThumbDownIcon, EyeIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchPostsAction } from "../../redux/slices/posts/postSlices";
+import { dislikePostsAction, fetchPostsAction, likePostsAction } from "../../redux/slices/posts/postSlices";
 import { fetchCategoriesAction } from "../../redux/slices/category/categorySlice";
 import LoadingComponent from "../../util/LoadingComponent";
 
 export default function PostsList() {
+  //select posts from store
+  const posts = useSelector(state => state?.posts);
+  const {postList, appErr, serverErr, loading, likes, dislikes} = posts;
+  
+  //select categories from store
+  const category = useSelector(state=>state.category);
+  const {categoryList, appErr : catAppErr, serverErr: catServerErr, loading: catLoading} = category;
   //dispatch
   const dispatch = useDispatch();
   //fetch posts
   useEffect(() => {
-    dispatch(fetchPostsAction());
-  }, [dispatch])
+    dispatch(fetchPostsAction(""));
+  }, [dispatch, likes, dislikes])
 
   //fetch categories
   useEffect(() => {
     dispatch(fetchCategoriesAction());
   }, [dispatch])
 
-  //select posts from store
-  const posts = useSelector(state => state?.posts);
-  const {postList, appErr, serverErr, loading} = posts;
-  
-  //select categories from store
-  const category = useSelector(state=>state.category);
-  const {categoryList, appErr : catAppErr, serverErr: catServerErr, loading: catLoading} = category;
-  // console.log(categoryList, catApperr, catServerErr, catLoading);
 
   return (
     <>
@@ -44,7 +43,7 @@ export default function PostsList() {
               </div>
               <div class=" block text-right w-1/2">
                 {/* View All */}
-                <button class="inline-block py-2 px-6 rounded-l-xl rounded-t-xl bg-green-600 hover:bg-green-700 text-gray-50 font-bold leading-loose transition duration-200">
+                <button onClick={()=>dispatch(fetchPostsAction(""))} class="inline-block py-2 px-6 rounded-l-xl rounded-t-xl bg-green-600 hover:bg-green-700 text-gray-50 font-bold leading-loose transition duration-200">
                   View All Posts
                 </button>
               </div>
@@ -59,8 +58,8 @@ export default function PostsList() {
                     {/* categories goes here */}
                     {catLoading? (<LoadingComponent />) : catAppErr || catServerErr ? (<h1> {catAppErr} {catServerErr} </h1>) : 
                 categoryList?.length <=0? (<h1>No post found</h1>) :  (categoryList?.map(category=>(
-                    <li>
-                      <p className="block cursor-pointer py-2 px-3 mb-4 rounded text-yellow-500 font-bold bg-gray-500">
+                    <li key={category?._id}>
+                      <p onClick={()=>dispatch(fetchPostsAction(category?.title))} className="block cursor-pointer py-2 px-3 mb-4 rounded text-yellow-500 font-bold bg-gray-500">
                         {category?.title} 
                       </p>
                     </li>
@@ -71,9 +70,9 @@ export default function PostsList() {
               <div class="w-full lg:w-3/4 px-3">   
 
                 {/* posts goes here */}
-                {loading? (<LoadingComponent />) : appErr || serverErr ? (<h1> {appErr} {serverErr} </h1>) : 
+                { appErr || serverErr ? (<h1> {appErr} {serverErr} </h1>) : 
                 postList?.length <=0? (<h1>No post found</h1>) : (postList?.map(post=>(
-                  <div class="flex flex-wrap bg-gray-900 -mx-3  lg:mb-6">
+                  <div key={post?._id} class="flex flex-wrap bg-gray-900 -mx-3  lg:mb-6">
                   <div class="mb-10  w-full lg:w-1/4 px-3">
                     <Link>
                       {/* Post image */}
@@ -88,17 +87,17 @@ export default function PostsList() {
                       {/* Likes */}
                       <div className="flex flex-row justify-center items-center ml-4 mr-4 pb-2 pt-1">
                         {/* Togle like  */}
-                        <div className="">
+                        <div onClick={()=>dispatch(likePostsAction(post?._id))} className="">
                           <ThumbUpIcon className="h-7 w-7 text-indigo-600 cursor-pointer" />
                         </div>
-                        <div className="pl-2 text-gray-600">{post?.likes ? post?.likes.length : null}</div>
+                        <div className="pl-2 text-gray-600">{post?.likes?.length}</div>
                       </div>
                       {/* Dislike */}
                       <div className="flex flex-row  justify-center items-center ml-4 mr-4 pb-2 pt-1">
-                        <div>
+                        <div onClick={()=>dispatch(dislikePostsAction(post?._id))}>
                           <ThumbDownIcon className="h-7 w-7 cursor-pointer text-gray-600" />
                         </div>
-                        <div className="pl-2 text-gray-600">{post?.dislikes ? post?.dislikes.length : null}</div>
+                        <div className="pl-2 text-gray-600">{post?.dislikes?.length}</div>
                       </div>
                       {/* Views */}
                       <div className="flex flex-row justify-center items-center ml-4 mr-4 pb-2 pt-1">
@@ -119,7 +118,7 @@ export default function PostsList() {
                     </Link>
                     <p class="text-gray-300">{post?.description}</p>
                     {/* Read more */}
-                    <Link className="text-indigo-500 hover:underline">
+                    <Link to={`/posts/${post?._id}`} className="text-indigo-500 hover:underline">
                       Read More..
                     </Link>
                     {/* User Avatar */}
