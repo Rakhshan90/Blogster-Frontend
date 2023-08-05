@@ -5,6 +5,8 @@ import { baseUrl } from "../../../util/baseUrl";
 
 //action to redirect
 const resetCreateAction = createAction('post/create-reset');
+const resetUpdateAction = createAction('post/update-reset');
+const resetDeleteAction = createAction('post/delete-reset');
 // --------------------------------------//
 //          ---       actions        --- //
 // --------------------------------------// 
@@ -34,6 +36,67 @@ export const createPostAction = createAsyncThunk('post/created', async (post,
         const { data } = await axios.post(`${baseUrl}/api/post`, formData, config);
         //dispatch reset action to redirect 
         dispatch(resetCreateAction());
+        return data;
+    } catch (error) {
+        if (!error?.response) {
+            //frontend error
+            throw error;
+        }
+        //backend error
+        return rejectWithValue(error?.response?.data);
+
+    }
+})
+
+//update post action
+export const updatePostAction = createAsyncThunk('post/updated', async (post,
+    { rejectWithValue, getState, dispatch }) => {
+
+    //get the token of user
+    const user = getState()?.users;
+    const { userAuth } = user;
+    //config
+    const config = {
+        headers: {
+            Authorization: `Bearer ${userAuth?.token}`,
+        }
+    }
+
+    try {
+        //http call
+        const { data } = await axios.put(`${baseUrl}/api/post/${post?.id}`, post, config);
+        // dispatch reset action to redirect 
+        dispatch(resetUpdateAction());
+        return data;
+    } catch (error) {
+        if (!error?.response) {
+            //frontend error
+            throw error;
+        }
+        //backend error
+        return rejectWithValue(error?.response?.data);
+
+    }
+})
+//delete post action
+export const deletePostAction = createAsyncThunk('post/deleted', async (postId,
+    { rejectWithValue, getState, dispatch }) => {
+
+    //get the token of user
+    const user = getState()?.users;
+    const { userAuth } = user;
+    //config
+    const config = {
+        headers: {
+            Authorization: `Bearer ${userAuth?.token}`,
+        }
+    }
+
+    try {
+        //http call
+        const { data } = await axios.delete(`${baseUrl}/api/post/${postId}`, config);
+        // dispatch reset action to redirect 
+        dispatch(resetDeleteAction());
         return data;
     } catch (error) {
         if (!error?.response) {
@@ -162,6 +225,48 @@ const postSlices = createSlice({
             state.serverErr = undefined;
         });
         builder.addCase(createPostAction.rejected, (state, action) => {
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+
+        //post update
+        builder.addCase(updatePostAction.pending, (state, action) => {
+            state.loading = true;
+        });
+        // reset action 
+        builder.addCase(resetUpdateAction, (state, action) => {
+            state.isUpdated = true;
+        })
+        builder.addCase(updatePostAction.fulfilled, (state, action) => {
+            state.loading = false;
+            state.postUpdated = action?.payload;
+            state.isUpdated = false;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(updatePostAction.rejected, (state, action) => {
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+
+        //post delete
+        builder.addCase(deletePostAction.pending, (state, action) => {
+            state.loading = true;
+        });
+        // reset action 
+        builder.addCase(resetDeleteAction, (state, action) => {
+            state.isDeleted = true;
+        })
+        builder.addCase(deletePostAction.fulfilled, (state, action) => {
+            state.loading = false;
+            state.postDeleted = action?.payload;
+            state.isDeleted = false;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(deletePostAction.rejected, (state, action) => {
             state.loading = false;
             state.appErr = action?.payload?.message;
             state.serverErr = action?.error?.message;

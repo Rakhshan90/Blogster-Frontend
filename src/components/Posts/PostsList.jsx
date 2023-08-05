@@ -57,7 +57,7 @@ export default function PostsList() {
                   <ul>
                     {/* categories goes here */}
                     {catLoading? (<LoadingComponent />) : catAppErr || catServerErr ? (<h1> {catAppErr} {catServerErr} </h1>) : 
-                categoryList?.length <=0? (<h1>No post found</h1>) :  (categoryList?.map(category=>(
+                categoryList?.length <=0? (<h1 className="text-yellow-400 text-lg text-center">No post found</h1>) :  (categoryList?.map(category=>(
                     <li key={category?._id}>
                       <p onClick={()=>dispatch(fetchPostsAction(category?.title))} className="block cursor-pointer py-2 px-3 mb-4 rounded text-yellow-500 font-bold bg-gray-500">
                         {category?.title} 
@@ -71,7 +71,7 @@ export default function PostsList() {
 
                 {/* posts goes here */}
                 { appErr || serverErr ? (<h1> {appErr} {serverErr} </h1>) : 
-                postList?.length <=0? (<h1>No post found</h1>) : (postList?.map(post=>(
+                postList?.length <=0? (<h1 className="text-yellow-400 text-lg text-center">No post found</h1>) : (postList?.map(post=>(
                   <div key={post?._id} class="flex flex-wrap bg-gray-900 -mx-3  lg:mb-6">
                   <div class="mb-10  w-full lg:w-1/4 px-3">
                     <Link>

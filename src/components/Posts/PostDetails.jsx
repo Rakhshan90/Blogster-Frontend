@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PencilAltIcon, TrashIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPostDetailsAction } from "../../redux/slices/posts/postSlices";
+import { deletePostAction, fetchPostDetailsAction } from "../../redux/slices/posts/postSlices";
 import LoadingComponent from "../../util/LoadingComponent";
 
 const PostDetails = () => {
@@ -18,8 +18,19 @@ const PostDetails = () => {
 
   //select post from posts store 
   const posts = useSelector(state => state.posts);
-  const { postDetails, loading, appErr, serverErr } = posts;
+  const { postDetails, loading, appErr, serverErr, isDeleted } = posts;
 
+  //checking login user and post owner is same or not
+  const users = useSelector(state  => state.users);
+  const {userAuth} = users;
+  const isCreatedBy = userAuth?._id === postDetails?.user?._id;
+
+
+  //navigate 
+  const navigate = useNavigate();
+  if(isDeleted){
+    navigate('/posts');
+  }
   return (
     <>
       {loading ? (<div className="h-screen">
@@ -62,15 +73,15 @@ const PostDetails = () => {
             <div class="max-w-xl mx-auto">
               <p class="mb-6 text-left  text-xl text-gray-200">
                 {postDetails?.description}
-                {/* Show delete and update btn if created user */}
-                <p class="flex">
-                  <Link class="p-3">
+                {/* Show delete and update btn if it was created by user */}
+                {isCreatedBy? (<p class="flex">
+                  <Link class="p-3" to={`/update-post/${postDetails?._id}`}>
                     <PencilAltIcon class="h-8 mt-3 text-yellow-300" />
                   </Link>
-                  <button class="ml-3">
+                  <button onClick={()=>dispatch(deletePostAction(postDetails?._id))} class="ml-3">
                     <TrashIcon class="h-8 mt-3 text-red-600" />
                   </button>
-                </p>
+                </p>) : null}
               </p>
             </div>
           </div>
