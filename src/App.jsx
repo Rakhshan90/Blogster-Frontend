@@ -13,6 +13,7 @@ import CreatePost from './components/Posts/CreatePost'
 import PostsList from './components/Posts/PostsList'
 import PostDetails from './components/Posts/PostDetails'
 import UpdatePost from './components/Posts/UpdatePost'
+import UpdateComment from './components/Comments/UpdateComment'
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route exact path='/posts/:id' element={<PostDetails />} />
           <Route exact path='/create-post' element={<PrivateProtectRoute> <CreatePost /> </PrivateProtectRoute>} />
           <Route exact path='/update-post/:id' element={<PrivateProtectRoute> <UpdatePost /> </PrivateProtectRoute>} />
+          <Route exact path='/update-comment/:id' element={<PrivateProtectRoute> <UpdateComment /> </PrivateProtectRoute>} />
           <Route exact path='/update-category/:id' element={<AdminProtectRoute> <UpdateCategory /> </AdminProtectRoute>} />
           <Route exact path='/category-list' element={<AdminProtectRoute> <CategoryList /> </AdminProtectRoute>} />
           <Route exact path='/register' element={<Register />} />

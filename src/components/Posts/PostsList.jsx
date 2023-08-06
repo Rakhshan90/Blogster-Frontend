@@ -67,7 +67,7 @@ export default function PostsList() {
                   </ul>
                 </div>
               </div>
-              <div class="w-full lg:w-3/4 px-3">   
+              <div class="w-full lg:w-3/4">   
 
                 {/* posts goes here */}
                 { appErr || serverErr ? (<h1> {appErr} {serverErr} </h1>) : 
