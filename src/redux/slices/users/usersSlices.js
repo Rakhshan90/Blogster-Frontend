@@ -1,9 +1,11 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseUrl } from "../../../util/baseUrl";
 
 // ****** Actions ******* // 
 
+//user reset action for redirect
+const resetUserAcion = createAction('user/reset/profile');
 // --------------------------------------//
 //        ---     Register Action    --- //
 // --------------------------------------//
@@ -64,6 +66,177 @@ async (userData, {rejectWithValue, getState, dispatch})=>{
             //error from backend
             return rejectWithValue(error?.response?.data);
         }
+    }
+});
+
+//Profile
+export const userProfileAction = createAsyncThunk('user/profile', 
+async(id, {rejectWithValue, getState, dispatch})=>{
+    //get the token of user
+    const user = getState()?.users;
+    const {userAuth} = user;
+   //config
+   const config = {
+    headers: {
+        Authorization : `Bearer ${userAuth?.token}`,
+    }
+   }
+    //http call
+    try {
+        const {data} = await axios.get(`${baseUrl}/api/users/profile/${id}`, 
+        config,
+        );
+        return data;
+    } catch (error) {
+        if(!error?.response){
+            //frontend error
+            throw error;
+        }
+        //backend error
+        return rejectWithValue(error?.response?.data);
+    }
+});
+
+//profile photo upload action
+export const profilePhotoUploadAction = createAsyncThunk('user/profile-upload', async (userImg,
+    { rejectWithValue, getState, dispatch }) => {
+
+    //get the token of user
+    const user = getState()?.users;
+    const { userAuth } = user;
+    //config
+    const config = {
+        headers: {
+            Authorization: `Bearer ${userAuth?.token}`,
+        }
+    }
+
+    try {
+        //form data
+        const formData = new FormData();
+        formData.append('image', userImg?.image);
+        //http call
+        const { data } = await axios.put(`${baseUrl}/api/users/profile-photo-upload`, formData, config);
+        return data;
+    } catch (error) {
+        if (!error?.response) {
+            //frontend error
+            throw error;
+        }
+        //backend error
+        return rejectWithValue(error?.response?.data);
+
+    }
+})
+
+//profile update action
+export const profileUpdateAction = createAsyncThunk('user/profile-update', async (userInfo,
+    { rejectWithValue, getState, dispatch }) => {
+
+    //get the token of user
+    const user = getState()?.users;
+    const { userAuth } = user;
+    //config
+    const config = {
+        headers: {
+            Authorization: `Bearer ${userAuth?.token}`,
+        }
+    }
+
+    try {
+        //http call
+        const { data } = await axios.put(`${baseUrl}/api/users`, {
+            firstName: userInfo?.firstName,
+            lastName: userInfo?.lastName,
+            bio: userInfo?.bio,
+            email: userInfo?.email,
+        }, config);
+        //dispatch reset action
+        dispatch(resetUserAcion());
+        return data;
+    } catch (error) {
+        if (!error?.response) {
+            //frontend error
+            throw error;
+        }
+        //backend error
+        return rejectWithValue(error?.response?.data);
+
+    }
+})
+//get user profile details action
+export const fetchUserDetails = createAsyncThunk('user/details', async (id,
+    { rejectWithValue, getState, dispatch }) => {
+
+    try {
+        //http call
+        const { data } = await axios.get(`${baseUrl}/api/users/${id}`);
+        return data;
+    } catch (error) {
+        if (!error?.response) {
+            //frontend error
+            throw error;
+        }
+        //backend error
+        return rejectWithValue(error?.response?.data);
+
+    }
+})
+
+//Follow user action
+export const followUserAction = createAsyncThunk('user/follow', 
+async(followId, {rejectWithValue, getState, dispatch})=>{
+    //get the token of user
+    const user = getState()?.users;
+    const {userAuth} = user;
+   //config
+   const config = {
+    headers: {
+        Authorization : `Bearer ${userAuth?.token}`,
+    }
+   }
+    //http call
+    try {
+        const {data} = await axios.put(`${baseUrl}/api/users/follow`, 
+        {followId}, 
+        config,
+        );
+        return data;
+    } catch (error) {
+        if(!error?.response){
+            //frontend error
+            throw error;
+        }
+        //backend error
+        return rejectWithValue(error?.response?.data);
+    }
+});
+//UnFollow user action
+export const unFollowUserAction = createAsyncThunk('user/unfollow', 
+async(unFollowId, {rejectWithValue, getState, dispatch})=>{
+    //get the token of user
+    const user = getState()?.users;
+    const {userAuth} = user;
+   //config
+   const config = {
+    headers: {
+        Authorization : `Bearer ${userAuth?.token}`,
+    }
+   }
+    //http call
+    try {
+        const {data} = await axios.put(`${baseUrl}/api/users/unfollow`, 
+        {unFollowId}, 
+        config,
+        );
+        return data;
+    } catch (error) {
+        if(!error?.response){
+            //frontend error
+            throw error;
+        }
+        //backend error
+        return rejectWithValue(error?.response?.data);
     }
 });
 
@@ -136,6 +309,120 @@ const usersSlices = createSlice({
             state.appErr = action?.payload?.message;
             state.serverErr = action?.error?.message;
         })
+
+        //Profile
+        builder.addCase(userProfileAction.pending, (state, action)=>{
+            state.profileLoading = true;
+            state.profileAppErr = undefined;
+            state.profileServerErr = undefined;
+        });
+        builder.addCase(userProfileAction.fulfilled, (state, action)=>{
+            state.profileLoading = false;
+            state.profile = action?.payload;
+            state.profileAppErr = undefined;
+            state.profileServerErr = undefined;
+        });
+        builder.addCase(userProfileAction.rejected, (state, action)=>{
+            state.profileLoading = false;
+            state.profileAppErr = action?.payload?.message;
+            state.profileServerErr = action?.error?.message;
+        });
+
+        //Profile photo upload
+        builder.addCase(profilePhotoUploadAction.pending, (state, action)=>{
+            state.loading = true;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(profilePhotoUploadAction.fulfilled, (state, action)=>{
+            state.loading = false;
+            state.profileUpload = action?.payload;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(profilePhotoUploadAction.rejected, (state, action)=>{
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+        //Profile update
+        builder.addCase(profileUpdateAction.pending, (state, action)=>{
+            state.loading = true;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(resetUserAcion, (state, action)=>{
+            state.isUpdated = true;
+        })
+        builder.addCase(profileUpdateAction.fulfilled, (state, action)=>{
+            state.loading = false;
+            state.profileUpdated = action?.payload;
+            state.isUpdated = false;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(profileUpdateAction.rejected, (state, action)=>{
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+        //get user details upload
+        builder.addCase(fetchUserDetails.pending, (state, action)=>{
+            state.loading = true;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(fetchUserDetails.fulfilled, (state, action)=>{
+            state.loading = false;
+            state.userDetails = action?.payload;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(fetchUserDetails.rejected, (state, action)=>{
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+
+        //follow to user
+        builder.addCase(followUserAction.pending, (state, action)=>{
+            state.loading = true;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(followUserAction.fulfilled, (state, action)=>{
+            state.loading = false;
+            state.followed = action?.payload;
+            state.unFollowed = undefined;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(followUserAction.rejected, (state, action)=>{
+            state.loading = false;
+            state.unFollowed = undefined;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+        //unfollow to user
+        builder.addCase(unFollowUserAction.pending, (state, action) => {
+            state.unfollowLoading = true;
+            state.unfollowAppErr = undefined;
+            state.unfollowServerErr = undefined;
+          });
+          builder.addCase(unFollowUserAction.fulfilled, (state, action) => {
+            state.unfollowLoading = false;
+            state.unFollowed = action?.payload;
+            state.followed = undefined;
+            state.unfollowAppErr = undefined;
+            state.unfollowServerErr = undefined;
+          });
+          builder.addCase(unFollowUserAction.rejected, (state, action) => {
+            state.unfollowLoading = false;
+            state.followed = undefined;
+            state.unfollowAppErr = action?.payload?.message;
+            state.unfollowServerErr = action?.error?.message;
+          });
+
         //logout
         builder.addCase(userLogoutAction.pending, (state, action)=>{
             state.loading = true;
