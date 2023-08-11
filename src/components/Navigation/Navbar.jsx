@@ -11,7 +11,6 @@ const Navbar = () => {
     const users = useSelector(state => state.users);
     const { userAuth } = users;
     const isAdmin = userAuth?.isAdmin;
-    console.log(userAuth?.isVerified);
 
     //get account verification data form store
     const accVerification = useSelector(state => state.accVerification);
