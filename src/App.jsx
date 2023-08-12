@@ -20,6 +20,10 @@ import UpdateProfileForm from './components/Users/Profile/UpdateProfileForm'
 import SendEmail from './components/Users/Email/SendEmail'
 import AccountVerified from './components/Users/AccountVerification/AccountVerified'
 import UsersList from './components/Users/UserList/UsersList'
+import UpdatePassword from './components/Users/PasswordManagement/UpdatePassword'
+import ResetPasswordForm from './components/Users/PasswordManagement/ResetPasswordForm'
+import ResetPassword from './components/Users/PasswordManagement/ResetPassword'
+
 
 
 function App() {
@@ -51,8 +55,20 @@ function App() {
             element={<PostDetails />}
           />
           <Route
+            exact path='/password-reset-token'
+            element={<ResetPasswordForm />}
+          />
+          <Route
+            exact path='/reset-password/:token'
+            element={<ResetPassword />}
+          />
+          <Route
             exact path='/create-post'
             element={<PrivateProtectRoute> <CreatePost /> </PrivateProtectRoute>}
+          />
+          <Route
+            exact path='/update-password'
+            element={<PrivateProtectRoute> <UpdatePassword /> </PrivateProtectRoute>}
           />
           <Route
             exact path='/update-post/:id'

@@ -6,6 +6,7 @@ import { baseUrl } from "../../../util/baseUrl";
 
 //user reset action for redirect
 const resetUserAcion = createAction('user/reset/profile');
+const resetUpdatePasswordAction = createAction('user/reset/update-password');
 // --------------------------------------//
 //        ---     Register Action    --- //
 // --------------------------------------//
@@ -281,7 +282,7 @@ export const blockUserAction = createAsyncThunk('user/block',
         //http call
         try {
             const { data } = await axios.put(`${baseUrl}/api/users/block-user/${id}`,
-            {}, config,);
+                {}, config,);
             return data;
         } catch (error) {
             if (!error?.response) {
@@ -308,7 +309,90 @@ export const unblockUserAction = createAsyncThunk('user/unblock',
         //http call
         try {
             const { data } = await axios.put(`${baseUrl}/api/users/unblock-user/${id}`,
-            {}, config,);
+                {}, config,);
+            return data;
+        } catch (error) {
+            if (!error?.response) {
+                //frontend error
+                throw error;
+            }
+            //backend error
+            return rejectWithValue(error?.response?.data);
+        }
+    });
+
+//Update user password action
+export const updateUserPasswordAction = createAsyncThunk('user/update-password',
+    async (password, { rejectWithValue, getState, dispatch }) => {
+        //get the token of user
+        const user = getState()?.users;
+        const { userAuth } = user;
+        //config
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userAuth?.token}`,
+            }
+        }
+        //http call
+        try {
+            const { data } = await axios.put(`${baseUrl}/api/users/password`, {password}, config,);
+            //dispatch reset action to redirect
+            dispatch(resetUpdatePasswordAction());
+            return data;
+        } catch (error) {
+            if (!error?.response) {
+                //frontend error
+                throw error;
+            }
+            //backend error
+            return rejectWithValue(error?.response?.data);
+        }
+    });
+
+//generate token for reset user password action
+export const generateResetPasswordTokenAction = createAsyncThunk('user/password-token',
+    async (UserEmail, { rejectWithValue, getState, dispatch }) => {
+        //get the token of user
+        const user = getState()?.users;
+        const { userAuth } = user;
+        //config
+        const config = {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        //http call
+        try {
+            const { data } = await axios.post(`${baseUrl}/api/users/forgot-password-token`, {UserEmail}, config,);
+            return data;
+        } catch (error) {
+            if (!error?.response) {
+                //frontend error
+                throw error;
+            }
+            //backend error
+            return rejectWithValue(error?.response?.data);
+        }
+    });
+
+//reset user password action
+export const passwordResetAction = createAsyncThunk('user/password-reset',
+    async (tokenPassword, { rejectWithValue, getState, dispatch }) => {
+        //get the token of user
+        const user = getState()?.users;
+        const { userAuth } = user;
+        //config
+        const config = {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        //http call
+        try {
+            const { data } = await axios.put(`${baseUrl}/api/users/reset-password`, {
+                token: tokenPassword?.token,
+                password : tokenPassword?.password,
+            }, config,);
             return data;
         } catch (error) {
             if (!error?.response) {
@@ -554,6 +638,64 @@ const usersSlices = createSlice({
             state.followed = undefined;
             state.unfollowAppErr = action?.payload?.message;
             state.unfollowServerErr = action?.error?.message;
+        });
+
+        //update user password
+        builder.addCase(updateUserPasswordAction.pending, (state, action) => {
+            state.loading = true;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(resetUpdatePasswordAction, (state, action) => {
+            state.isPasswordUpdated = true;
+        })
+        builder.addCase(updateUserPasswordAction.fulfilled, (state, action) => {
+            state.loading = false;
+            state.passwordUpdated = action?.payload;
+            state.isPasswordUpdated = false;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(updateUserPasswordAction.rejected, (state, action) => {
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+
+        //generate token for reset user password
+        builder.addCase(generateResetPasswordTokenAction.pending, (state, action) => {
+            state.loading = true;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(generateResetPasswordTokenAction.fulfilled, (state, action) => {
+            state.loading = false;
+            state.passwordToken = action?.payload;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(generateResetPasswordTokenAction.rejected, (state, action) => {
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+
+        //reset user password
+        builder.addCase(passwordResetAction.pending, (state, action) => {
+            state.loading = true;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(passwordResetAction.fulfilled, (state, action) => {
+            state.loading = false;
+            state.resetPassword = action?.payload;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(passwordResetAction.rejected, (state, action) => {
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
         });
 
         //logout
