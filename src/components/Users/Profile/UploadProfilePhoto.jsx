@@ -54,9 +54,9 @@ export default function UploadProfilePhoto() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-300">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-black">
           Upload profile photo
         </h2>
         {/* Displya err here */}
@@ -110,10 +110,10 @@ export default function UploadProfilePhoto() {
                 <span>Loading, Please wait...</span>
               </button>) : (<button
                 type="submit"
-                className="inline-flex justify-center w-full px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                className="inline-flex justify-center w-full px-4 py-2 shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
               >
                 <UploadIcon
-                  className="-ml-1 mr-2 h-5  text-gray-400"
+                  className="-ml-1 mr-2 h-5  text-white"
                   aria-hidden="true"
                 />
                 <span>Upload Photo</span>

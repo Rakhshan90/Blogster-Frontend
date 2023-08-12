@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import poster from "../../../img/poster.png";
+import poster from "../../../img/poster.jpg";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { userLoginAction } from "../../../redux/slices/users/usersSlices";
@@ -41,8 +41,8 @@ const Login = () => {
   }
   return (
     <>
-      <section className="min-h-screen relative py-20 2xl:py-40 bg-gray-900 overflow-hidden">
-        <div className="absolute top-0 left-0 lg:bottom-0 h-full lg:h-auto w-full lg:w-4/12 bg-violet-500 lg:overflow-hidden">
+      <section className="min-h-screen relative py-20 2xl:py-40 bg-slate-50 overflow-hidden">
+        <div className="absolute top-0 left-0 lg:bottom-0 h-full lg:h-auto w-full lg:w-4/12 bg-slate-100 lg:overflow-hidden">
           <img
             className="hidden lg:block h-full w-full object-cover"
             src={poster}
@@ -61,13 +61,13 @@ const Login = () => {
                       Login to your Account
                       {/* display error message */}
                       {appErr || serverErr ? (
-                        <div className="text-red-400">
+                        <div className="text-red-500">
                           {serverErr} {appErr}
                         </div>
                       ) : null}
                     </h3>
-                    <div className="flex items-center pl-6 mb-3 border border-gray-50 bg-white rounded-full">
-                      <span className="inline-block pr-3 border-r border-gray-50">
+                    <div className="flex items-center pl-6 mb-3 border border-gray-100 bg-gray-100 rounded-full">
+                      <span className="inline-block pr-3 border-r border-gray-100">
                         <svg
                           className="w-5 h-5"
                           width="17"
@@ -91,7 +91,7 @@ const Login = () => {
                         value={formik.values.email}
                         onChange={formik.handleChange('email')}
                         onBlur={formik.handleBlur('email')}
-                        className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                        className="w-full pr-6 bg-gray-100 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
                         type="email"
                         placeholder="enter email"
                       />
@@ -100,8 +100,8 @@ const Login = () => {
                     <div className="text-red-400 mb-2">
                       {formik.touched.email && formik.errors.email}
                     </div>
-                    <div className="flex items-center pl-6 mb-6 border border-gray-50 bg-white rounded-full">
-                      <span className="inline-block pr-3 border-r border-gray-50">
+                    <div className="flex items-center  pl-6 mb-6 border border-gray-100 bg-gray-100 rounded-full">
+                      <span className="inline-block pr-3 border-r border-gray-100">
                         <svg
                           className="w-5 h-5"
                           width="20"
@@ -125,13 +125,13 @@ const Login = () => {
                         value={formik.values.password}
                         onChange={formik.handleChange('password')}
                         onBlur={formik.handleBlur('password')}
-                        className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                        className="w-full bg-gray-100 pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
                         type="password"
                         placeholder=" Password"
                       />
                     </div>
                     {/* Err msg */}
-                    <div className="text-red-400 mb-2">
+                    <div className="text-red-500 mb-2">
                       {formik.touched.password && formik.errors.password}
                     </div>
                     {/* Login btn */}
@@ -142,24 +142,24 @@ const Login = () => {
                       Loading, please wait...
                     </button>) : (<button
                       type="submit"
-                      className="py-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full transition duration-200"
+                      className="py-4 w-full bg-black hover:bg-slate-700 text-white font-bold rounded-full transition duration-200"
                     >
                       Login
                     </button>)}
                   </form>
                   {/* reset password if you forgot */}
-                    <div className="p-2">
-                      <Link
-                        to={`/password-reset-token`}
-                        className="font-medium text-blue-500 hover:text-blue-600"
-                      >
-                        Forgot Password ?
-                      </Link>
-                    </div>
+                  <div className="p-2">
+                    <Link
+                      to={`/password-reset-token`}
+                      className="font-medium text-blue-500 hover:text-blue-600"
+                    >
+                      Forgot Password ?
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div className="w-full lg:w-3/5 px-4 mb-16 lg:mb-0 order-first lg:order-last">
-                <span className="flex mb-10 mx-auto items-center justify-center h-20 w-20 bg-blue-500 rounded-lg">
+                <span className="flex mb-10 mx-auto items-center justify-center h-20 w-20 bg-blue-900 rounded-lg">
                   <svg
                     width="37"
                     height="37"
@@ -199,7 +199,7 @@ const Login = () => {
                     </g>
                   </svg>
                 </span>
-                <h2 className="mb-10 text-center text-6xl lg:text-7xl text-gray-300 font-bold font-heading">
+                <h2 className="mb-10 text-center text-6xl lg:text-7xl text-black font-bold font-heading">
                   Ready to start? Login Now.
                 </h2>
               </div>

@@ -47,13 +47,13 @@ const ResetPassword = () => {
     }, [5000])
   }, [resetPassword]);
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-slate-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           {/* error message  */}
           {appErr || serverErr ? (<h1 className="text-center text-red-500 text-lg">{appErr} {serverErr}</h1>) : null}
           {/* success message  */}
-          {resetPassword && (<h1 className="text-center text-green-700 text-lg">Password Successfully reset. You will be Redirect to login within 5 seconds</h1>)}
+          {resetPassword && (<h1 className="text-center text-green-600 text-lg">Password Successfully reset. You will be Redirect to login within 5 seconds</h1>)}
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Password Reset
           </h2>
@@ -77,12 +77,12 @@ const ResetPassword = () => {
                 type="password"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black rounded-t-md focus:outline-none focus:ring-black-500 focus:border-black-500 focus:z-10 sm:text-sm"
                 placeholder="Enter New Password"
               />
             </div>
             {/* Err message */}
-            <div className="text-red-400 mb-2">
+            <div className="text-red-500 mb-2">
               {formik.touched.password && formik.errors.password}
             </div> 
           </div>
@@ -94,7 +94,7 @@ const ResetPassword = () => {
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <LockClosedIcon
-                    className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                    className="h-5 w-5 text-white"
                     aria-hidden="true"
                   />
                 </span>
@@ -103,11 +103,11 @@ const ResetPassword = () => {
             ) : (
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <LockClosedIcon
-                    className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                    className="h-5 w-5 text-white"
                     aria-hidden="true"
                   />
                 </span>

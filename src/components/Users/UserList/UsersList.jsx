@@ -21,10 +21,10 @@ const UsersList = () => {
 
   return (
     <>
-      <section class="py-8 bg-gray-900 min-h-screen">
+      <section class="py-8 bg-slate-100 min-h-screen">
         {loading ? (<LoadingComponent />) : appErr || serverErr ? (
-          <h3 className="text-center text-red-400 text-lg">{appErr} {serverErr}</h3>) : usersList?.length <= 0 ? (
-            <h1 className="text-center text-red-400 text-lg">No users found</h1>
+          <h3 className="text-center text-red-500 text-lg">{appErr} {serverErr}</h3>) : usersList?.length <= 0 ? (
+            <h1 className="text-center text-red-500 text-lg">No users found</h1>
           ) : usersList?.map(user => (
             <>
               <UsersListItem user={user} />

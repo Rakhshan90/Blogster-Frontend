@@ -45,19 +45,15 @@ const SendEmail = () => {
     navigate(`/profile/${id}`)
   }
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-300">
-          Send Mesage
-          {/* Email title */}
-          <span className="text-green-300">email title</span>
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-black">
+          Send Email Message
         </h2>
 
         <p className="mt-2 text-center text-sm text-gray-600">
-          {/* Display err here */}
-        </p>
-        <p className="mt-2 text-center text-sm text-gray-600">
           {/* {emailSent && <div>Sent</div>} */}
+          {isEmailSent && (<h1 className="text-center text-green-500 text-lg">Email successfully sent</h1>)}
         </p>
       </div>
 
@@ -65,14 +61,14 @@ const SendEmail = () => {
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form onSubmit={formik.handleSubmit} className="space-y-6">
             {serverErr || appErr ? (
-              <h2 className="text-center text-red-400 text-xl">
+              <h2 className="text-center text-red-500 text-xl">
                 {serverErr} {appErr}
               </h2>
             ) : null}
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-black"
               >
                 Recipient Email
               </label>
@@ -87,7 +83,7 @@ const SendEmail = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  className="appearance-none block w-full px-3 py-2 border bg-gray-200 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 border bg-gray-200 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
                 />
               </div>
               {/* Err msg */}
@@ -98,7 +94,7 @@ const SendEmail = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-black"
               >
                 Subject
               </label>
@@ -112,7 +108,7 @@ const SendEmail = () => {
                   name="subject"
                   type="text"
                   autoComplete="subject"
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
                 />
               </div>
               {/* err msg */}
@@ -123,7 +119,7 @@ const SendEmail = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-black"
               >
                 Message
               </label>
@@ -134,7 +130,7 @@ const SendEmail = () => {
                 onBlur={formik.handleBlur('message')}
                 rows="5"
                 cols="10"
-                className="rounded-lg appearance-none block w-full py-3 px-3 text-base text-center leading-tight text-gray-600 bg-transparent focus:bg-transparent  border border-gray-200 focus:border-gray-500  focus:outline-none"
+                className="rounded-lg appearance-none block w-full py-3 px-3 text-base text-center leading-tight text-black bg-transparent focus:bg-transparent  border border-gray-200 focus:border-black  focus:outline-none"
                 type="text"
               ></textarea>
               {/* err here */}
@@ -153,7 +149,7 @@ const SendEmail = () => {
                 </button>) :
                 (<button
                   type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
                 >
                   Send
                 </button>)}

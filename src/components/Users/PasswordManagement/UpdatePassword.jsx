@@ -33,9 +33,9 @@ const UpdatePassword = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-700  flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-100  flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-300">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-black">
           Change your password
         </h2>
       </div>
@@ -45,8 +45,8 @@ const UpdatePassword = () => {
           {appErr || serverErr ? (<h3 className="text-red-500 text-center text-lg
           pb-2">{appErr}{serverErr}</h3>) : null}
           <form className="space-y-6" onSubmit={formik.handleSubmit}>
-            <div className="flex items-center pl-6 mb-6 border border-gray-50 bg-white rounded-full">
-              <span className="inline-block pr-3 border-r border-gray-50">
+            <div className="flex items-center pl-6 mb-6 bg-gray-100 rounded-full">
+              <span className="inline-block pr-3 border-r border-gray-100">
                 <svg
                   className="w-5 h-5"
                   width="20"
@@ -71,13 +71,13 @@ const UpdatePassword = () => {
                 value={formik.values.password}
                 onChange={formik.handleChange("password")}
                 onBlur={formik.handleBlur("password")}
-                className="w-full border-gray-300 border-2 pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                className="w-full bg-gray-100 pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
                 type="password"
                 placeholder=" Password"
               />
             </div>
             {/* Err msg */}
-            <div className="text-red-400 mb-2">
+            <div className="text-red-500 mb-2">
               {formik.touched.password && formik.errors.password}
             </div>
             <div>
@@ -92,7 +92,7 @@ const UpdatePassword = () => {
               ) : (
                 <button
                   type="submit"
-                  className="inline-flex bg-indigo-700 justify-center w-full px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-200  hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                  className="inline-flex bg-black justify-center w-full px-4 py-2  shadow-sm text-sm font-medium rounded-md text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
                 >
                   <span>Update Password</span>
                 </button>

@@ -26,11 +26,11 @@ const CategoryList = () => {
           <LoadingComponent />
         </>
       ) : appErr || serverErr ? (
-        <h2 className="text-center text-3xl text-red-600">
+        <h2 className="text-center text-3xl text-red-500">
           {serverErr} {serverErr}
         </h2>
       ) : categoryList?.length <= 0 ? (
-        <h2 className="text-yellow-400 text-lg text-center">
+        <h2 className="text-red-500 text-lg text-center">
           No category Found
         </h2>
       ) : (
@@ -38,30 +38,30 @@ const CategoryList = () => {
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-black">
+                  <thead className="bg-slate-100">
                     <tr>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider"
                       >
                         Author
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider"
                       >
                         Title
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider"
                       >
                         Created At
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider"
                       >
                         Edit
                       </th>
@@ -99,7 +99,7 @@ const CategoryList = () => {
                         </td>
                         <Link to={`/update-category/${category?._id}`}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <PencilAltIcon className="h-5 text-indigo-500" />
+                            <PencilAltIcon className="h-5 text-black" />
                           </td>
                         </Link>
                       </tr>

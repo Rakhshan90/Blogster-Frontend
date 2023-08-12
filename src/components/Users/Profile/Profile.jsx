@@ -84,13 +84,13 @@ const Profile = () => {
                             <h1 className="text-2xl font-bold text-gray-900 ">
                               {profile?.firstName} {profile?.lastName}
 
-                              <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                              <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-500">
                                 {profile?.accountType}
                               </span>
                               {/* Display if verified or not */}
-                              {profile?.isAccountVerified ? (<span className="inline-flex ml-2 items-center px-3 py-0.5  rounded-lg text-sm font-medium bg-green-600 text-gray-300">
+                              {profile?.isAccountVerified ? (<span className="inline-flex ml-2 items-center px-3 py-0.5  rounded-lg text-sm font-medium bg-green-500 text-white">
                                 Account Verified
-                              </span>) : (<span className="inline-flex ml-2 items-center px-3 py-0.5  rounded-lg text-sm font-medium bg-red-600 text-gray-300">
+                              </span>) : (<span className="inline-flex ml-2 items-center px-3 py-0.5  rounded-lg text-sm font-medium bg-red-500 text-white">
                                 Unverified Account
                               </span>)}
                             </h1>
@@ -98,13 +98,13 @@ const Profile = () => {
                               Date Joined:{profile?.createdAt}
                               {/* <DateFormatter date={profile?.createdAt} />{" "} */}
                             </p>
-                            <p className="text-green-400 mt-2">
+                            <p className="text-blue-500 mt-2">
                               {profile?.posts?.length} posts
                             </p>
-                            <p className="text-green-400">
+                            <p className="text-blue-500">
                               {profile?.followers?.length} followers
                             </p>
-                            <p className="text-green-400 mb-2">
+                            <p className="text-blue-500 mb-2">
                               {profile?.following?.length} following
                             </p>
                             {/* Who view my profile */}
@@ -123,7 +123,7 @@ const Profile = () => {
                             <>
                             {isSame ? (<Link
                                 to={`/upload-profile-photo`}
-                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                               >
                                 <UserIcon
                                   className="-ml-1 mr-2 h-5 w-5 text-gray-400"
@@ -139,7 +139,7 @@ const Profile = () => {
                             {!isSame ? (<div>
                               {profile?.isFollowing ? (<button
                                 onClick={() => dispatch(unFollowUserAction(id))}
-                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                               >
                                 <EmojiSadIcon
                                   className="-ml-1 mr-2 h-5 w-5 text-gray-400"
@@ -149,7 +149,7 @@ const Profile = () => {
                               </button>) : (<button
                                 onClick={() => dispatch(followUserAction(id))}
                                 type="button"
-                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                               >
                                 <HeartIcon
                                   className="-ml-1 mr-2 h-5 w-5 text-gray-400"
@@ -164,7 +164,7 @@ const Profile = () => {
                             <>
                               {isSame? (<Link
                                 to={`/update-profile/${id}`}
-                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                               >
                                 <UserIcon
                                   className="-ml-1 mr-2 h-5 w-5 text-gray-400"
@@ -176,13 +176,13 @@ const Profile = () => {
                             {/* Send Mail */}
                             <button
                               onClick={sendMailNavigate}
-                              className="inline-flex justify-center bg-indigo-900 px-4 py-2 border border-yellow-700 shadow-sm text-sm font-medium rounded-md text-gray-700  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                              className="inline-flex justify-center bg-black px-4 py-2  shadow-sm text-sm font-medium rounded-md text-white  hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
                             >
                               <MailIcon
                                 className="-ml-1 mr-2 h-5 w-5 text-gray-200"
                                 aria-hidden="true"
                               />
-                              <span className="text-base mr-2  text-bold text-yellow-500">
+                              <span className="text-base mr-2  text-bold text-white">
                                 Send Message
                               </span>
                             </button>

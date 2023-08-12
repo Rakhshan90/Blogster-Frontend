@@ -49,35 +49,35 @@ const Register = () => {
   }
 
   return (
-    <section className="relative py-20 2xl:py-40 bg-gray-800 overflow-hidden">
+    <section className="relative py-20 2xl:py-40 bg-slate-100 overflow-hidden">
       <div className="relative container px-4 mx-auto">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-wrap items-center -mx-4">
             <div className="w-full lg:w-1/2 px-4 mb-16 lg:mb-0">
               <div className="max-w-md">
-                <span className="text-lg text-blue-400 font-bold">
+                <span className="text-lg text-blue-900 font-bold">
                   Register Account
                 </span>
-                <h2 className="mt-8 mb-12 text-5xl font-bold font-heading text-white">
+                <h2 className="mt-8 mb-12 text-5xl font-bold font-heading text-black">
                   Create an account and start pending down your ideas
                 </h2>
               </div>
             </div>
             <div className="w-full lg:w-1/2 px-4">
-              <div className="px-6 lg:px-20 py-12 lg:py-24 bg-gray-600 rounded-lg">
+              <div className="px-6 lg:px-20 py-12 lg:py-24 bg-white rounded-lg">
                 <form onSubmit={formik.handleSubmit}>
-                  <h3 className="mb-10 text-2xl text-white font-bold font-heading">
+                  <h3 className="mb-10 text-2xl text-black font-bold font-heading">
                     Register Account
                     {/* display error message */}
                     {appErr || serverErr ? (
-                      <div className="text-red-400">
+                      <div className="text-red-500">
                         {serverErr} {appErr}
                       </div>
                     ) : null}
                   </h3>
                   {/* First name */}
-                  <div className="flex items-center pl-6 mb-3 bg-white rounded-full">
-                    <span className="inline-block pr-3 py-2 border-r border-gray-50">
+                  <div className="flex items-center pl-6 mb-3 bg-gray-100 rounded-full">
+                    <span className="inline-block pr-3 py-2 border-r border-gray-100">
                       <svg
                         className="w-5 h-5"
                         width="20"
@@ -119,7 +119,7 @@ const Register = () => {
                       value={formik.values.firstName}
                       onChange={formik.handleChange('firstName')}
                       onBlur={formik.handleBlur('firstName')}
-                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                      className="w-full pl-4 bg-gray-100 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
                       type="firstName"
                       placeholder="First Name"
                     />
@@ -129,8 +129,8 @@ const Register = () => {
                     {formik.touched.firstName && formik.errors.firstName}
                   </div>
                   {/* Last name */}
-                  <div className="flex items-center pl-6 mb-3 bg-white rounded-full">
-                    <span className="inline-block pr-3 py-2 border-r border-gray-50">
+                  <div className="flex items-center pl-6 mb-3 bg-gray-100 rounded-full">
+                    <span className="inline-block pr-3 py-2 border-r border-gray-100">
                       <svg
                         className="w-5 h-5"
                         width="20"
@@ -172,7 +172,7 @@ const Register = () => {
                       value={formik.values.lastName}
                       onChange={formik.handleChange('lastName')}
                       onBlur={formik.handleBlur('lastName')}
-                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                      className="w-full pl-4 pr-6 py-4 bg-gray-100 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
                       type="lastName"
                       placeholder="Last Name"
                     />
@@ -182,8 +182,8 @@ const Register = () => {
                   {formik.touched.lastName && formik.errors.lastName}
                   </div>
                   {/* Email */}
-                  <div className="flex items-center pl-6 mb-3 bg-white rounded-full">
-                    <span className="inline-block pr-3 py-2 border-r border-gray-50">
+                  <div className="flex items-center pl-6 mb-3 bg-gray-100 rounded-full">
+                    <span className="inline-block pr-3 py-2 border-r border-gray-100">
                       <svg
                         className="w-5 h-5"
                         width="20"
@@ -225,7 +225,7 @@ const Register = () => {
                       value={formik.values.email}
                       onChange={formik.handleChange('email')}
                       onBlur={formik.handleBlur('email')}
-                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                      className="w-full bg-gray-100 pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
                       type="email"
                       placeholder="example@gmail.com"
                     />
@@ -234,8 +234,8 @@ const Register = () => {
                   <div className="text-red-400 mb-2">
                   {formik.touched.email && formik.errors.email}
                   </div>
-                  <div className="flex items-center pl-6 mb-3 bg-white rounded-full">
-                    <span className="inline-block pr-3 py-2 border-r border-gray-50">
+                  <div className="flex items-center pl-6 mb-3 bg-gray-100 rounded-full">
+                    <span className="inline-block pr-3 py-2 border-r border-gray-100">
                       <svg
                         className="w-5 h-5"
                         width="17"
@@ -258,7 +258,7 @@ const Register = () => {
                       value={formik.values.password}
                       onChange={formik.handleChange('password')}
                       onBlur={formik.handleBlur('password')}
-                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                      className="w-full pl-4 bg-gray-100 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
                       type="password"
                       placeholder="Password"
                     />
@@ -280,7 +280,7 @@ const Register = () => {
                   ) : (
                     <button
                     type="submit"
-                    className="py-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full transition duration-200"
+                    className="py-4 w-full bg-black hover:bg-slate-700 text-white font-bold rounded-full transition duration-200"
                   >
                     Register
                   </button>
