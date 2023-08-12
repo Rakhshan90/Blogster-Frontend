@@ -33,12 +33,11 @@ const Login = () => {
 
   //select states from store
   const store = useSelector(state => state?.users);
-  // console.log(store);
   const { userAuth, loading, appErr, serverErr } = store;
   //navigate user
   const navigate = useNavigate();
   if (userAuth) {
-    // navigate('/profile');
+    navigate(`/profile/${userAuth?._id}`);
   }
   return (
     <>

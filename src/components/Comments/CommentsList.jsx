@@ -8,11 +8,11 @@ export default function CommentsList({ comments }) {
   const dispatch = useDispatch();
 
   //checking login user and comment owner is same or not
-  const users = useSelector(state  => state.users);
-  const {userAuth} = users;
+  const users = useSelector(state => state.users);
+  const { userAuth } = users;
   const isLoginUser = userAuth?._id;
-  
-  return ( 
+
+  return (
     <div>
       <ul className="divide-y bg-gray-700 w-96 divide-gray-200 p-3 mt-5">
         <div className="text-gray-400">{comments?.length} Comments</div>
@@ -31,9 +31,11 @@ export default function CommentsList({ comments }) {
                     />
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-sm font-medium text-green-400">
-                          {comment?.user?.firstName} {comment?.user?.lastName}
-                        </h3>
+                        <Link to={`/profile/${comment?.user?._id}`}>
+                          <h3 className="text-sm font-medium text-green-400">
+                            {comment?.user?.firstName} {comment?.user?.lastName}
+                          </h3>
+                        </Link>
                         <p className="text-bold text-yellow-500 text-base ml-5">
                           {/* <Moment fromNow ago>
                             {comment?.createdAt}
@@ -46,11 +48,11 @@ export default function CommentsList({ comments }) {
                       </p>
                       {/* Check if is the same user created this comment */}
 
-                      {isLoginUser===comment?.user?._id ? (<p class="flex">
+                      {isLoginUser === comment?.user?._id ? (<p class="flex">
                         <Link to={`/update-comment/${comment?._id}`} class="p-3">
                           <PencilAltIcon class="h-5 mt-3 text-yellow-300" />
                         </Link>
-                        <button onClick={()=>dispatch(deleteCommentAction(comment?._id))} class="ml-3">
+                        <button onClick={() => dispatch(deleteCommentAction(comment?._id))} class="ml-3">
                           <TrashIcon class="h-5 mt-3 text-red-600" />
                         </button>
                       </p>) : null}

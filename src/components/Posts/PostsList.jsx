@@ -70,7 +70,7 @@ export default function PostsList() {
               <div class="w-full lg:w-3/4">   
 
                 {/* posts goes here */}
-                { appErr || serverErr ? (<h1> {appErr} {serverErr} </h1>) : 
+                { appErr || serverErr ? (<h1 className="text-red-400 text-center text-lg"> {appErr} {serverErr} </h1>) : 
                 postList?.length <=0? (<h1 className="text-yellow-400 text-lg text-center">No post found</h1>) : (postList?.map(post=>(
                   <div key={post?._id} class="flex flex-wrap bg-gray-900 -mx-3  lg:mb-6">
                   <div class="mb-10  w-full lg:w-1/4 px-3">
@@ -134,14 +134,14 @@ export default function PostsList() {
                       </div>
                       <div className="ml-3">
                         <p className="text-sm font-medium text-gray-900">
-                          <Link className="text-yellow-400 hover:underline ">
+                          <Link to={`/profile/${post?.user?._id}`} className="text-yellow-400 hover:underline ">
                             {post?.user?.firstName} {post?.user?.lastName}
                           </Link>
                         </p>
                         <div className="flex space-x-1 text-sm text-green-500">
                           <time>
                             {/* <DateFormatter date={post?.createdAt} /> */}
-                            Post date
+                            {post?.createdAt}
                           </time>
                           <span aria-hidden="true">&middot;</span>
                         </div>

@@ -11,11 +11,11 @@ const PostDetails = () => {
   //destructure id of post from params
   const location = useLocation();
   const id = location.pathname.split('/')[2];
-   
+
   //select comment from store
-  const comments = useSelector(state=>state.comments)
-  const{comment} = comments;
-  const{commentDeleted} = comments;
+  const comments = useSelector(state => state.comments)
+  const { comment } = comments;
+  const { commentDeleted } = comments;
   //dispatch
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,14 +27,14 @@ const PostDetails = () => {
   const { postDetails, loading, appErr, serverErr, isDeleted } = posts;
 
   //checking login user and post owner is same or not
-  const users = useSelector(state  => state.users);
-  const {userAuth} = users;
+  const users = useSelector(state => state.users);
+  const { userAuth } = users;
   const isCreatedBy = userAuth?._id === postDetails?.user?._id;
 
 
   //navigate 
   const navigate = useNavigate();
-  if(isDeleted){
+  if (isDeleted) {
     navigate('/posts');
   }
   return (
@@ -64,11 +64,13 @@ const PostDetails = () => {
                 alt=""
               />
               <div className="text-left">
-                <h4 className="mb-1 text-2xl font-bold text-gray-50">
-                  <span className="text-xl lg:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-yellow-200 to-orange-600">
-                    {postDetails?.user?.firstName} {postDetails?.user?.lastName}
-                  </span>
-                </h4>
+                <Link to={`/profile/${postDetails?.user?._id}`}>
+                  <h4 className="mb-1 text-2xl font-bold text-gray-50">
+                    <span className="text-xl lg:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-yellow-200 to-orange-600">
+                      {postDetails?.user?.firstName} {postDetails?.user?.lastName}
+                    </span>
+                  </h4>
+                </Link>
                 <p className="text-gray-500">
                   {/* <DateFormatter date={postDetails?.createdAt}/> */}
                   {postDetails?.createdAt}
@@ -80,11 +82,11 @@ const PostDetails = () => {
               <p className="mb-6 text-left  text-xl text-gray-200">
                 {postDetails?.description}
                 {/* Show delete and update btn if it was created by user */}
-                {isCreatedBy? (<p className="flex">
+                {isCreatedBy ? (<p className="flex">
                   <Link className="p-3" to={`/update-post/${postDetails?._id}`}>
                     <PencilAltIcon className="h-8 mt-3 text-yellow-300" />
                   </Link>
-                  <button onClick={()=>dispatch(deletePostAction(postDetails?._id))} className="ml-3">
+                  <button onClick={() => dispatch(deletePostAction(postDetails?._id))} className="ml-3">
                     <TrashIcon className="h-8 mt-3 text-red-600" />
                   </button>
                 </p>) : null}

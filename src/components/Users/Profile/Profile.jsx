@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { followUserAction, unFollowUserAction, userProfileAction } from "../../../redux/slices/users/usersSlices";
 import LoadingComponent from "../../../util/LoadingComponent";
 
-const Profile = () =>{
+const Profile = () => {
   //get id of login user form params
   const location = useLocation();
   const id = location.pathname.split('/')[2];
@@ -22,14 +22,21 @@ const Profile = () =>{
   const navigate = useNavigate();
   //select user data from store
   const users = useSelector(state => state.users);
-  const { profile, profileLoading, profileAppErr, profileServerErr, followed, unFollowed } = users;
+  const {
+    profile,
+    profileLoading,
+    profileAppErr,
+    profileServerErr,
+    followed,
+    unFollowed,
+    userAuth } = users;
 
 
   useEffect(() => {
     dispatch(userProfileAction(id));
   }, [id, dispatch, followed, unFollowed]);
 
-  
+
   //send mail handle click
   const sendMailNavigate = () => {
     navigate('/send-email', {
@@ -39,6 +46,9 @@ const Profile = () =>{
       },
     });
   };
+
+  //check if login user id and profile id is same then hide the follow button
+  const isSame = userAuth?._id === profile?._id;
 
   return (
     <>
@@ -72,10 +82,10 @@ const Profile = () =>{
                         <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                           <div className=" flex flex-col 2xl:block mt-10 min-w-0 flex-1">
                             <h1 className="text-2xl font-bold text-gray-900 ">
-                              {profile?.firstName}
+                              {profile?.firstName} {profile?.lastName}
 
                               <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
-                                {/* {profile?.accountType} */}
+                                {profile?.accountType}
                               </span>
                               {/* Display if verified or not */}
                               {profile?.isAccountVerified ? (<span className="inline-flex ml-2 items-center px-3 py-0.5  rounded-lg text-sm font-medium bg-green-600 text-gray-300">
@@ -89,44 +99,46 @@ const Profile = () =>{
                               {/* <DateFormatter date={profile?.createdAt} />{" "} */}
                             </p>
                             <p className="text-green-400 mt-2">
-                              {profile?.posts.length} posts
+                              {profile?.posts?.length} posts
                             </p>
                             <p className="text-green-400">
-                              {profile?.followers.length} followers
+                              {profile?.followers?.length} followers
                             </p>
                             <p className="text-green-400 mb-2">
-                              {profile?.following.length} following
+                              {profile?.following?.length} following
                             </p>
                             {/* Who view my profile */}
                             <div className="flex items-center  mb-2">
                               <EyeIcon className="h-5 w-5 " />
                               <div className="pl-2">
                                 {/* {profile?.viewedBy?.length}{" "} */}
-                                <span className="text-indigo-400 cursor-pointer hover:underline">
-                                  users viewed your profile
+                                <span className="text-indigo-400 cursor-pointer">
+                                  users viewed your profile {profile?.viewedBy?.length} 
                                 </span>
                               </div>
                             </div>
 
                             {/* is login user */}
                             {/* Upload profile photo */}
-                            <Link
-                              to={`/upload-profile-photo`}
-                              className="inline-flex justify-center w-48 px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-                            >
-                              <UploadIcon
-                                className="-ml-1 mr-2 h-5 w-5 text-gray-400"
-                                aria-hidden="true"
-                              />
-                              <span>Upload Photo</span>
-                            </Link>
+                            <>
+                            {isSame ? (<Link
+                                to={`/upload-profile-photo`}
+                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                              >
+                                <UserIcon
+                                  className="-ml-1 mr-2 h-5 w-5 text-gray-400"
+                                  aria-hidden="true"
+                                />
+                                <span>Upload Photo</span>
+                              </Link>) : null}
+                            </>
                           </div>
 
                           <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                             {/* // Hide follow button from the same */}
-                            <div>
+                            {!isSame ? (<div>
                               {profile?.isFollowing ? (<button
-                                onClick={() =>dispatch(unFollowUserAction(id))}
+                                onClick={() => dispatch(unFollowUserAction(id))}
                                 className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
                               >
                                 <EmojiSadIcon
@@ -135,22 +147,22 @@ const Profile = () =>{
                                 />
                                 <span>Unfollow</span>
                               </button>) : (<button
-                                  onClick={()=>dispatch(followUserAction(id))}
-                                  type="button"
-                                  className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-                                >
-                                  <HeartIcon
-                                    className="-ml-1 mr-2 h-5 w-5 text-gray-400"
-                                    aria-hidden="true"
-                                  />
-                                  <span>Follow </span>
-                                </button>)}
-                            </div>
+                                onClick={() => dispatch(followUserAction(id))}
+                                type="button"
+                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                              >
+                                <HeartIcon
+                                  className="-ml-1 mr-2 h-5 w-5 text-gray-400"
+                                  aria-hidden="true"
+                                />
+                                <span>Follow </span>
+                              </button>)}
+                            </div>) : null}
 
                             {/* Update Profile */}
 
                             <>
-                              <Link
+                              {isSame? (<Link
                                 to={`/update-profile/${id}`}
                                 className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
                               >
@@ -159,7 +171,7 @@ const Profile = () =>{
                                   aria-hidden="true"
                                 />
                                 <span>Update Profile</span>
-                              </Link>
+                              </Link>) : null}
                             </>
                             {/* Send Mail */}
                             <button
@@ -193,28 +205,32 @@ const Profile = () =>{
                   <div className="flex justify-center place-items-start flex-wrap  md:mb-0">
                     <div className="w-full md:w-1/3 px-4 mb-4 md:mb-0">
                       <h1 className="text-center text-xl border-gray-500 mb-2 border-b-2">
-                        Who viewed my profile : 9
+                        Who viewed my profile : {profile?.viewedBy.length}
                       </h1>
 
                       {/* Who view my post */}
                       <ul className="">
-                        <Link>
-                          <div className="flex mb-2 items-center space-x-4 lg:space-x-6">
-                            <img
-                              className="w-16 h-16 rounded-full lg:w-20 lg:h-20"
-                            // src={user.profilePhoto}
-                            // alt={user?._id}
-                            />
-                            <div className="font-medium text-lg leading-6 space-y-1">
-                              <h3>
-                                {/* {user?.firstName} {user?.lastName} */}Name
-                              </h3>
-                              <p className="text-indigo-600">
-                                {/* {user.accountType} */} Account Type
-                              </p>
-                            </div>
-                          </div>
-                        </Link>
+                        {profile?.viewedBy?.length <= 0 ? (<h1>No viewers</h1>) : profile?.viewedBy?.map(user => (
+                          <li>
+                            <Link>
+                              <div className="flex mb-2 items-center space-x-4 lg:space-x-6">
+                                <img
+                                  className="w-16 h-16 rounded-full lg:w-20 lg:h-20"
+                                  src={user.profilePhoto}
+                                  alt={user?._id}
+                                />
+                                <div className="font-medium text-lg leading-6 space-y-1">
+                                  <h3>
+                                    {user?.firstName} {user?.lastName}
+                                  </h3>
+                                  <p className="text-indigo-600">
+                                    {user?.accountType}
+                                  </p>
+                                </div>
+                              </div>
+                            </Link>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                     {/* All my Post */}
@@ -223,7 +239,7 @@ const Profile = () =>{
                         My Post
                       </h1>
                       {/* Loop here */}
-                      {profile?.posts.length <= 0 ? (<h1>No Post Found</h1>) : (profile?.posts.map(post => (
+                      {profile?.posts?.length <= 0 ? (<h1>No Post Found</h1>) : (profile?.posts?.map(post => (
                         <div className="flex flex-wrap  -mx-3 mt-3  lg:mb-6">
                           <div className="mb-2   w-full lg:w-1/4 px-3">
                             <Link>

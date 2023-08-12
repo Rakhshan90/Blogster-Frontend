@@ -19,6 +19,7 @@ import UploadProfilePhoto from './components/Users/Profile/UploadProfilePhoto'
 import UpdateProfileForm from './components/Users/Profile/UpdateProfileForm'
 import SendEmail from './components/Users/Email/SendEmail'
 import AccountVerified from './components/Users/AccountVerification/AccountVerified'
+import UsersList from './components/Users/UserList/UsersList'
 
 
 function App() {
@@ -36,6 +37,10 @@ function App() {
           <Route
             exact path='/add-category'
             element={<AdminProtectRoute> <AddNewCategory /> </AdminProtectRoute>}
+          />
+          <Route
+            exact path='/users'
+            element={<AdminProtectRoute> <UsersList /> </AdminProtectRoute>}
           />
           <Route
             exact path='/posts'
