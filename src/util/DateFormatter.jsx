@@ -1,10 +1,20 @@
 import React from 'react';
-import Moment from 'react-moment';
+import { format } from 'date-fns';
 
-const DateFormatter = ({date}) => {
+const DateFormatter = ({ date }) => {
+  // Convert the prop (string) to a Date object
+  const dateObject = new Date(date);
 
+  // Check if the dateObject is valid before proceeding
+  if (isNaN(dateObject)) {
+    return <p>Invalid date format</p>;
+  }
+
+  const formattedDate = format(dateObject, 'yyyy MMM dd HH:mm:ss');
   return (
-    <Moment>{date}</Moment>
+    <div>
+      <p>{formattedDate}</p>
+    </div>
   );
 };
 

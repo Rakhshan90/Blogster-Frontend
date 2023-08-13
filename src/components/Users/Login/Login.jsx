@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import poster from "../../../img/poster.jpg";
+import poster from "../../../img/poster.png";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { userLoginAction } from "../../../redux/slices/users/usersSlices";
@@ -41,7 +41,7 @@ const Login = () => {
   }
   return (
     <>
-      <section className="min-h-screen relative py-20 2xl:py-40 bg-slate-50 overflow-hidden">
+      <section className="min-h-screen relative py-20 2xl:py-40 bg-slate-100 overflow-hidden">
         <div className="absolute top-0 left-0 lg:bottom-0 h-full lg:h-auto w-full lg:w-4/12 bg-slate-100 lg:overflow-hidden">
           <img
             className="hidden lg:block h-full w-full object-cover"

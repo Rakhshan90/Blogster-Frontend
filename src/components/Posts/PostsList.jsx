@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { dislikePostsAction, fetchPostsAction, likePostsAction } from "../../redux/slices/posts/postSlices";
 import { fetchCategoriesAction } from "../../redux/slices/category/categorySlice";
 import LoadingComponent from "../../util/LoadingComponent";
+import DateFormatter from "../../util/DateFormatter";
 
 export default function PostsList() {
   //select posts from store
@@ -140,8 +141,7 @@ export default function PostsList() {
                         </p>
                         <div className="flex space-x-1 text-sm text-gray-500">
                           <time>
-                            {/* <DateFormatter date={post?.createdAt} /> */}
-                            {post?.createdAt}
+                            <DateFormatter date={post?.createdAt} />
                           </time>
                           <span aria-hidden="true">&middot;</span>
                         </div>

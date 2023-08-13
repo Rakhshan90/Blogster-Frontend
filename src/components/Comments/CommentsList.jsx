@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { PencilAltIcon, TrashIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCommentAction } from "../../redux/slices/comments/commentSlices";
-// import Moment from "react-moment";
+import DateFormatter from "../../util/DateFormatter";
+
 
 export default function CommentsList({ comments }) {
   const dispatch = useDispatch();
@@ -37,10 +38,7 @@ export default function CommentsList({ comments }) {
                           </h3>
                         </Link>
                         <p className="text-bold text-gray-500 text-base ml-5">
-                          {/* <Moment fromNow ago>
-                            {comment?.createdAt}
-                          </Moment> */}
-                          {comment?.createdAt}
+                          <DateFormatter date={comment?.createdAt} />
                         </p>
                       </div>
                       <p className="text-sm text-black">

@@ -45,7 +45,7 @@ const Register = () => {
   //navigate 
   const navigate = useNavigate()
   if(registered) {
-    navigate('/profile');
+    navigate('/login');
   }
 
   return (
@@ -59,7 +59,7 @@ const Register = () => {
                   Register Account
                 </span>
                 <h2 className="mt-8 mb-12 text-5xl font-bold font-heading text-black">
-                  Create an account and start pending down your ideas
+                  Create an account and start sharing your knowledge
                 </h2>
               </div>
             </div>

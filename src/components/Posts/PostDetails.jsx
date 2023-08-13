@@ -6,6 +6,7 @@ import { deletePostAction, fetchPostDetailsAction } from "../../redux/slices/pos
 import LoadingComponent from "../../util/LoadingComponent";
 import AddComment from "../Comments/AddComment";
 import CommentsList from "../Comments/CommentsList";
+import DateFormatter from "../../util/DateFormatter";
 
 const PostDetails = () => {
   //destructure id of post from params
@@ -72,8 +73,7 @@ const PostDetails = () => {
                   </h4>
                 </Link>
                 <p className="text-gray-500">
-                  {/* <DateFormatter date={postDetails?.createdAt}/> */}
-                  {postDetails?.createdAt}
+                  <DateFormatter date={postDetails?.createdAt}/>
                 </p>
               </div>
             </div>

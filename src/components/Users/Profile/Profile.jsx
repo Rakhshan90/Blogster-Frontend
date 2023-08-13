@@ -11,6 +11,7 @@ import { MailIcon, EyeIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { followUserAction, unFollowUserAction, userProfileAction } from "../../../redux/slices/users/usersSlices";
 import LoadingComponent from "../../../util/LoadingComponent";
+import DateFormatter from "../../../util/DateFormatter";
 
 const Profile = () => {
   //get id of login user form params
@@ -95,8 +96,7 @@ const Profile = () => {
                               </span>)}
                             </h1>
                             <p className="m-3 text-lg">
-                              Date Joined:{profile?.createdAt}
-                              {/* <DateFormatter date={profile?.createdAt} />{" "} */}
+                              Date Joined: <DateFormatter date={profile?.createdAt} />{" "}
                             </p>
                             <p className="text-blue-500 mt-2">
                               {profile?.posts?.length} posts
@@ -198,11 +198,11 @@ const Profile = () => {
                   </div>
                   {/* Tabs */}
                   <div className="mt-6 sm:mt-2 2xl:mt-5">
-                    <div className="border-b border-red-900">
+                    <div className="">
                       <div className="max-w-5xl mx-auto "></div>
                     </div>
                   </div>
-                  <div className="flex justify-center place-items-start flex-wrap  md:mb-0">
+                  <div className="flex justify-center  bg-slate-100 place-items-start flex-wrap  md:mb-0">
                     <div className="w-full md:w-1/3 px-4 mb-4 md:mb-0">
                       <h1 className="text-center text-xl border-gray-500 mb-2 border-b-2">
                         Who viewed my profile : {profile?.viewedBy.length}
