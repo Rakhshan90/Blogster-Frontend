@@ -73,7 +73,7 @@ export default function PostsList() {
                 {/* posts goes here */}
                 { appErr || serverErr ? (<h1 className="text-red-500 text-center text-lg"> {appErr} {serverErr} </h1>) : 
                 postList?.length <=0? (<h1 className="text-black text-lg text-center">No post found</h1>) : (postList?.map(post=>(
-                  <div key={post?._id} class="flex flex-wrap bg-white -mx-3  lg:mb-6">
+                  <div key={post?._id} class="flex flex-wrap bg-white mx-3  mb-10">
                   <div class="mb-10  w-full lg:w-1/4 px-3">
                     <Link>
                       {/* Post image */}

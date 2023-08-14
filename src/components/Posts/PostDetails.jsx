@@ -67,7 +67,7 @@ const PostDetails = () => {
               <div className="text-left">
                 <Link to={`/profile/${postDetails?.user?._id}`}>
                   <h4 className="mb-1 text-2xl font-bold text-black">
-                    <span className="text-xl lg:text-2xl font-bold text-transparent bg-clip-text text-black">
+                    <span className="text-xl lg:text-2xl font-bold bg-clip-text ">
                       {postDetails?.user?.firstName} {postDetails?.user?.lastName}
                     </span>
                   </h4>
