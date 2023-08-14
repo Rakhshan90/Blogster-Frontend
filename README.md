@@ -9,16 +9,20 @@
 
 
 ## Live Link.
+https://blogster-3m69.onrender.com/
 
-Live Link will be available as soon as possible to experience this web app.
 ## Appendix
 
-The REST APIs are all derived from my backend application. Here is the link of backend source code. https://github.com/Rakhshan90/mern-blog-backend
+The REST APIs are all derived from my backend application. Here is the link to the backend source code. https://github.com/Rakhshan90/mern-blog-backend
 
 
 ## Demo
 
-Live Demo will be available as soon as possible.
+
+https://github.com/Rakhshan90/Blogster-Frontend/assets/92143665/06204bb2-d450-4d1a-9796-6954261023c2
+
+
+
 
 
 ## Features
@@ -36,6 +40,7 @@ Live Demo will be available as soon as possible.
 - **Social Interactions:** To enhance networking capabilities, Blogster incorporates features like follow and unfollow, allowing users to connect with other bloggers and stay updated with their latest posts. Furthermore, users can block and unblock other users, providing control over their interactions and maintaining a positive environment within the platform.
 
 - **Profanity Detection:** Blogster takes user experience and content quality seriously. To ensure a friendly and respectful environment, a profanity detection feature is implemented. This functionality automatically detects and flags any inappropriate language or offensive words in blog posts or comments, allowing administrators to take appropriate action.
+- **Password encryption:** User passwords are securely encrypted before they are stored in the database. This ensures that both regular users and even administrators don't have the ability to access or retrieve users' actual passwords. As a result, even if the database is compromised, the passwords will remain safe and secure.
 
 
 
@@ -70,6 +75,7 @@ To Run this app in development mode
 
 
 What challenges did you face and how did you overcome them?
+Developing a full-stack blog application requires navigating through various challenges, ranging from managing image uploads and email communication to integrating distinct account features. By leveraging cloud storage solutions, email delivery services, and well-structured backend APIs, you can overcome these hurdles and deliver a polished application that meets the needs of your users. Remember that each challenge presents an opportunity for growth and learning, ultimately leading to a more refined and user-friendly blog application.
 
 
 
