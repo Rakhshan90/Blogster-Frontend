@@ -11,26 +11,27 @@
 ## Live Link.
 https://blogster-3m69.onrender.com/
 
-<<<<<<< HEAD
-https://blogster-3m69.onrender.com/
-=======
->>>>>>> 4449392b42a71b3fb0240bb05bb7ccb3f325001d
+
+
+
 ## Appendix
 
-The REST APIs are all derived from my backend application. Here is the link to the backend source code. https://github.com/Rakhshan90/mern-blog-backend
+The REST APIs are all derived from my backend application. Here is the link to the backend source code.
+```
+ https://github.com/Rakhshan90/mern-blog-backend
+```
 
 
 ## Demo
 
-<<<<<<< HEAD
-https://github.com/Rakhshan90/Blogster-Frontend/assets/92143665/06204bb2-d450-4d1a-9796-6954261023c2
-=======
 
 https://github.com/Rakhshan90/Blogster-Frontend/assets/92143665/06204bb2-d450-4d1a-9796-6954261023c2
 
 
 
->>>>>>> 4449392b42a71b3fb0240bb05bb7ccb3f325001d
+
+
+
 
 
 ## Features
