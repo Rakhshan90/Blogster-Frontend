@@ -1,1 +1,1 @@
-export const baseUrl = 'https://kind-cyan-grasshopper-belt.cyclic.app';
+export const baseUrl = 'https://mern-blog-backend-ca71.onrender.com';
